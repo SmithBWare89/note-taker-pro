@@ -3,5 +3,10 @@
     "title": "Test Title",
     "text": "Test text",
     "id": "test_id"
+  },
+  {
+    "title": "New Note",
+    "text": "Test note information",
+    "id": "0f4f8d53-8bcb-4b9b-b6d2-d3583409ea2e"
   }
 ]

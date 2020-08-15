@@ -1,22 +1,25 @@
 const router = require('express').Router();
 const notes = require('../../db/db.json');
 const { v4: uuidv4 } = require('uuid');
-const { createNewNote, validateNote } = require('../../lib/notes');
+const { createNewNote, validateNote, findById } = require('../../lib/notes');
 
 router.get('/notes', (req, res) => {
     // When user requests the notes
     // Send the notes in a json format
     res.json(notes);
 })
+
 router.get('/notes/:id', (req, res) => {
     // find the note by id
-    // if there is a matching result then return it
-    // otherwise sending 404 error
-})
+    const result = findById(req.params.id, notes);
 
-router.get('/notes/:title', (req, res) => {
-    const results = 
-    res.json(notes)
+    if(result){
+        // if there is a matching result then return it
+        res.json(result);
+    } else {
+        // otherwise sending 404 error
+        res.send(404);
+    }
 })
 
 router.post('/notes', (req, res) => {
