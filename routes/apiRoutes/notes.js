@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const notes = require('../../db/db.json');
 const { v4: uuidv4 } = require('uuid');
-const createNewNote = require('../../lib/notes');
+const { createNewNote, validateNote } = require('../../lib/notes');
 
 router.get('/notes', (req, res) => {
     // When user requests the notes
@@ -22,13 +22,17 @@ router.get('/notes/:title', (req, res) => {
 router.post('/notes', (req, res) => {
     // set unique id for the note
     req.body.id = uuidv4();
-    const newNote = createNewNote(req.body, notes);
-    // res.json(newNote);
-    res.json(newNote);
-    // validate the note
-        // if note doesn't contain title
-        // if note doesn't contain body text
-        // keywords optional? mandatory?
+    // If the note is not valid
+    if(!validateNote(req.body)) {
+        // Send 400 status code
+        // Print that the note is not formatted properly
+        res.status(400).send('The note is not properly formatted.');
+    } else {
+        // Else pass the new note info and current note array into function
+        const newNote = createNewNote(req.body, notes);
+        // Print the newly created note
+        res.json(notes);
+    }
 })
 
 router.get('/*', (req,res) => {
