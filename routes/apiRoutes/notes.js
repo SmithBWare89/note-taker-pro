@@ -64,14 +64,19 @@ router.post('/notes', (req, res) => {
 router.delete('/notes/:id', (req, res) => {
     // Convert the searched id to a number
     const id = Number(req.params.id);
-    // See if the id exists in the array
+    // See if the number exists in the array
     const deleted = notes.find(notes => notes.id === id);
     // If it does exist
     if(deleted){
         // Filter for all that don't match the id
         notes = notes.filter(notes => notes.id !== id);
+        // Rewrite the json file
+        fs.writeFileSync(
+            path.join(__dirname, '../../db/db.json'),
+            JSON.stringify(notes, null, 2)
+        );
         // Send new notes file
-        res.status(200)
+        res.status(200).send('Success');
     } else {
         res.status(404).send(`Note you're looking for does not exist.`)
     }
