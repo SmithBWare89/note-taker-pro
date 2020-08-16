@@ -10,20 +10,21 @@ router.get('/notes', (req, res) => {
     res.status(200).json(notes);
 })
 
-router.get('/notes/:routeName', (req, res) => {
-    // Replace one or more whitespace with a -
-    const searchedTitle = req.params.routeName.replace(/\s+/g, "-");
-    // Find out if the searched title matches a title in the notes array
-    const result = findByTitle(searchedTitle, notes);
-    // If there is a match
-    if(result){
-        // display the match
-        res.status(200).json(result);
-    } else {
-        // No match send 404
-        res.send(404);
-    }
-})
+//THIS IS HOW YOU COULD SEARCH BY NAME
+// router.get('/notes/:routeName', (req, res) => {
+//     // Replace one or more whitespace with a -
+//     const searchedTitle = req.params.routeName.replace(/\s+/g, "-");
+//     // Find out if the searched title matches a title in the notes array
+//     const result = findByTitle(searchedTitle, notes);
+//     // If there is a match
+//     if(result){
+//         // display the match
+//         res.status(200).json(result);
+//     } else {
+//         // No match send 404
+//         res.send(404);
+//     }
+// })
 
 router.get('/notes/:id', (req, res) => {
     // find the note by id
