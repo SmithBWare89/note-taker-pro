@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const notes = require('../../db/db.json');
+let notes = require('../../db/db.json');
 const fs = require('fs');
 const path = require('path');
 const { createNewNote, validateNote, findById, findByTitle, randomizeId } = require('../../lib/notes');
@@ -69,14 +69,9 @@ router.delete('/notes/:id', (req, res) => {
     // If it does exist
     if(deleted){
         // Filter for all that don't match the id
-        const notesArray = notes.filter(notes => notes.id !== id);
-        // Rewrite the json file
-        fs.writeFileSync(
-            path.join(__dirname, '../../db/db.json'),
-            JSON.stringify(notesArray, null, 2)
-        );
+        notes = notes.filter(notes => notes.id !== id);
         // Send new notes file
-        res.send();
+        res.status(200)
     } else {
         res.status(404).send(`Note you're looking for does not exist.`)
     }
