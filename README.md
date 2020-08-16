@@ -59,7 +59,7 @@ Please contact me on [github](https://www.github.com/SmithBWare89) if you would 
 - [Traversy Media - Node/Express Update & Delete](https://www.youtube.com/watch?v=aZ16pkrMkZE)
 
 ## Test
- Tests for endpoints were performing using [Insomnia Core](https://insomnia.rest/).
+ Tests for endpoints were performed using [Insomnia Core](https://insomnia.rest/).
 
 ## Questions
 All questions can be directed to [github](https://www.github.com/SmithBWare89).
