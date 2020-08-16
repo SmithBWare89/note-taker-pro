@@ -32,6 +32,8 @@ Once you're on the landing page click `Get Started` to navigate to the notes pag
   ![Demonstration of how to add a new note](./assets/images/addingnotes.gif)
   #### How to Delete Notes
   ![Demonstration of how to delete a newly added note](./assets/images/deletingnotes.gif)
+  #### Navigating API Endpoints
+  ![Demonstration of how to navigate API endpoints](./assets/images/apiendpoints.gif)
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
