@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const notes = require('../../db/db.json');
+const fs = require('fs');
+const path = require('path');
 const { createNewNote, validateNote, findById, findByTitle, randomizeId } = require('../../lib/notes');
 
 router.get('/notes', (req, res) => {
     // When user requests the notes
     // Send the notes in a json format
-    res.json(notes);
+    res.status(200).json(notes);
 })
 
 router.get('/notes/:routeName', (req, res) => {
@@ -16,7 +18,7 @@ router.get('/notes/:routeName', (req, res) => {
     // If there is a match
     if(result){
         // display the match
-        res.json(result);
+        res.status(200).json(result);
     } else {
         // No match send 404
         res.send(404);
@@ -30,7 +32,7 @@ router.get('/notes/:id', (req, res) => {
     // If there is a matching note
     if(result){
         // Print it
-        res.json(result);
+        res.status(200).json(result);
     } else {
         // Else send 404 error
         res.send(404);
@@ -55,7 +57,28 @@ router.post('/notes', (req, res) => {
         // Else pass the new info and existing note array into function
         const newNote = createNewNote(req.body, notes);
         // Print the newly created note
-        res.json(newNote);
+        res.status(200).json(newNote);
+    }
+})
+
+router.delete('/notes/:id', (req, res) => {
+    // Convert the searched id to a number
+    const id = Number(req.params.id);
+    // See if the id exists in the array
+    const deleted = notes.find(notes => notes.id === id);
+    // If it does exist
+    if(deleted){
+        // Filter for all that don't match the id
+        const notesArray = notes.filter(notes => notes.id !== id);
+        // Rewrite the json file
+        fs.writeFileSync(
+            path.join(__dirname, '../../db/db.json'),
+            JSON.stringify(notesArray, null, 2)
+        );
+        // Send new notes file
+        res.send();
+    } else {
+        res.status(404).send(`Note you're looking for does not exist.`)
     }
 })
 
