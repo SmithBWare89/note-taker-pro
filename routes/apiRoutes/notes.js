@@ -71,7 +71,7 @@ router.delete('/notes/:id', (req, res) => {
     if(deleted){
         // Filter for all that don't match the id
         notes = notes.filter(notes => notes.id !== id);
-        // Rewrite the json file
+        // // Rewrite the json file
         fs.writeFileSync(
             path.join(__dirname, '../../db/db.json'),
             JSON.stringify(notes, null, 2)
